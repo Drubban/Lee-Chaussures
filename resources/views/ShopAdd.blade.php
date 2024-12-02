@@ -7,26 +7,27 @@
             <h6 class="mb-0">{{ __('Agregar producto') }}</h6>
         </div>
         <div class="card-body pt-4 p-3">
+            
             <form action="{{ route('ShopStore') }}" method="POST" role="form text-left">
                 @csrf
                 <!-- Mensajes de error -->
                 @if($errors->any())
-                    <div class="mt-3 alert alert-primary alert-dismissible fade show" role="alert">
-                        <span class="alert-text text-white">{{ $errors->first() }}</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                            <i class="fa fa-close" aria-hidden="true"></i>
-                        </button>
-                    </div>
+                <div class="mt-3 alert alert-primary alert-dismissible fade show" role="alert">
+                    <span class="alert-text text-white">{{ $errors->first() }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <i class="fa fa-close" aria-hidden="true"></i>
+                    </button>
+                </div>
                 @endif
 
                 <!-- Mensaje de éxito -->
                 @if(session('success'))
-                    <div class="m-3 alert alert-success alert-dismissible fade show" id="alert-success" role="alert">
-                        <span class="alert-text text-white">{{ session('success') }}</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                            <i class="fa fa-close" aria-hidden="true"></i>
-                        </button>
-                    </div>
+                <div class="m-3 alert alert-success alert-dismissible fade show" id="alert-success" role="alert">
+                    <span class="alert-text text-white">{{ session('success') }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <i class="fa fa-close" aria-hidden="true"></i>
+                    </button>
+                </div>
                 @endif
 
                 <div class="row">
@@ -38,7 +39,7 @@
                                 type="text" placeholder="Nombre del producto" id="nombre" name="nombre"
                                 value="{{ old('nombre') }}">
                             @error('nombre')
-                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -51,7 +52,7 @@
                                 type="text" placeholder="Descripción del producto" id="descripcion" name="descripcion"
                                 value="{{ old('descripcion') }}">
                             @error('descripcion')
-                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -66,7 +67,7 @@
                                 type="text" placeholder="Talla del producto" id="talla" name="talla"
                                 value="{{ old('talla') }}">
                             @error('talla')
-                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -79,7 +80,7 @@
                                 type="number" placeholder="Precio del producto" id="precio" name="precio"
                                 value="{{ old('precio') }}" step="0.01">
                             @error('precio')
-                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -94,7 +95,7 @@
                                 type="number" placeholder="Cantidad en stock" id="stock" name="stock"
                                 value="{{ old('stock') }}">
                             @error('stock')
-                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -107,14 +108,16 @@
                                 type="url" placeholder="URL de la imagen del producto" id="url" name="url"
                                 value="{{ old('url') }}">
                             @error('url')
-                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
                 </div>
 
                 <!-- Botón de guardar -->
-                <div class="d-flex justify-content-end">
+                
+                <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                <a href="{{ route('Shop') }}" class="btn btn-secondary">Volver</a>
                     <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Guardar cambios' }}</button>
                 </div>
             </form>

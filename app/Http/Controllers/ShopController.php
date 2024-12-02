@@ -43,8 +43,7 @@ class ShopController extends Controller
             'url' => 'nullable|string|max:255',
         ]);
 
-        // Llamada al procedimiento almacenado para insertar producto
-        DB::select('CALL sp_ins_producto(?, ?, ?, ?, ?, ?)', [
+        DB::select('CALL sp_ins_prod_yair(?, ?, ?, ?, ?, ?)', [
             $request->nombre,
             $request->descripcion,
             $request->talla,
@@ -58,7 +57,7 @@ class ShopController extends Controller
 
     public function show($id)
     {
-        $producto = DB::select('CALL sp_get_productos()');
+        $producto = DB::select('CALL sp_get_prod_yair()');
         $producto = collect($producto)->firstWhere('id', $id);
 
         if (!$producto) {
@@ -70,7 +69,7 @@ class ShopController extends Controller
 
     public function editar($id)
     {
-        $producto = DB::select('CALL sp_get_productos()');
+        $producto = DB::select('CALL sp_get_prod_yair()');
         $producto = collect($producto)->firstWhere('id', $id);
 
         if (!$producto) {
@@ -92,7 +91,7 @@ class ShopController extends Controller
         ]);
 
         // Llamada al procedimiento almacenado para actualizar producto
-        DB::select('CALL sp_upd_producto(?, ?, ?, ?, ?, ?, ?)', [
+        DB::select('CALL sp_upd_prod_yair(?, ?, ?, ?, ?, ?, ?)', [
             $id,
             $request->nombre,
             $request->descripcion,
@@ -107,7 +106,7 @@ class ShopController extends Controller
 
     public function destroy($id)
     {
-        DB::select('CALL sp_del_producto(?)', [$id]);
+        DB::select('CALL sp_del_prod_yair(?)', [$id]);
         return redirect()->route('Shop')->with('success', 'Producto eliminado correctamente.');
     }
 }

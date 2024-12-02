@@ -1,8 +1,10 @@
 
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 overflow-auto" id="sidenav-main">
+
   <div class="sidenav-header">
-    <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-    <a class="align-items-center d-flex m-0 navbar-brand text-wrap" href="{{ route('dashboard') }}">
+  <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-md-block" aria-hidden="true" id="iconSidenav"></i>
+
+    <a class="align-items-center d-flex m-0 navbar-brand text-wrap" href="{{ route('Bienvenida') }}">
         <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="...">
         <span class="ms-3 font-weight-bold">Lee Chaussures</span>
     </a>
@@ -10,7 +12,7 @@
   <hr class="horizontal dark mt-0">
   <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
-    @if(Auth::check() && Auth::user()->userType === 'Administrador' or Auth::user()->userType === 'Trabajador')
+    @if(Auth::check() && Auth::user()->userType === 'Cliente' or Auth::user()->userType === 'Administrador' or Auth::user()->userType === 'Trabajador')
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('dashboard') ? 'active' : '') }}" href="{{ url('dashboard') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -28,7 +30,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text ms-1">Dashboard</span>
+          <span class="nav-link-text ms-1">Bienvenida</span>
         </a>
       </li>
       @endif
@@ -54,17 +56,7 @@
             <span class="nav-link-text ms-1">Configuracion Usuario</span>
         </a>
       </li> -->
-      @if(Auth::check() && Auth::user()->userType === 'Administrador' or Auth::user()->userType === 'Trabajador')
-      <li class="nav-item pb-2">
-        <a class="nav-link {{ (Request::is('Shop') ? 'active' : '') }}" href="{{ url('Shop') }}">
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ (Request::is('Shop') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
-            </div>
-            <span class="nav-link-text ms-1">Producto</span>
-        </a>
-      </li>
-      @endif
-      
+           
       @if(Auth::check() && Auth::user()->userType === 'Administrador')
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('tables') ? 'active' : '') }}" href="{{ url('tables') }}">
@@ -110,8 +102,9 @@
       </li>
       @endif
 
-      <!-- <li class="nav-item">
-        <a class="nav-link {{ (Request::is('profile') ? 'active' : '') }}" href="{{ url('profile') }}">
+      @if(Auth::check() && Auth::user()->userType === 'Administrador' or Auth::user()->userType === 'Trabajador')
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('Shop') ? 'active' : '') }}" href="{{ url('Shop') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <title>customer-support</title>
@@ -128,9 +121,10 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text ms-1">Profile</span>
+          <span class="nav-link-text ms-1">Producto</span>
         </a>
-      </li> -->
+      </li>
+      @endif
     </ul>
   </div>
 </aside>

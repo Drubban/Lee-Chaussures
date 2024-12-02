@@ -26,11 +26,11 @@ class SessionsController extends Controller
         $user = Auth::user(); 
         switch ($user->userType) {
             case 'Administrador':
-                return redirect('/dashboard');
+                return redirect('/tables');
             case 'Cliente':
-                return redirect('/shop');
+                return redirect('/Shop');
             case 'Trabajador':
-                return redirect('/dashboard');
+                return redirect('/tables');
             default:
                 return redirect('/dashboard');
         }

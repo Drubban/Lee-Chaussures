@@ -8,7 +8,7 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                         <h6>Tabla de Productos</h6>
-                        <a href="{{ route('ShopAdd') }}" class="btn btn-primary">Nuevo Producto</a>
+                        <a href="{{ route('ShopAdd') }}" class="btn btn-secondary">Nuevo Producto</a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -26,10 +26,10 @@
                                     @foreach ($productos as $producto)
                                     <tr>
                                         <td>
-                                        <div class="d-flex flex-column justify-content-center">
-                                                    <a href="{{ route('ShopShow', ['id' => $producto->id]) }}" class="mb-0 text-sm">{{ $producto->nombre }}</a>
-                                                </div>
-                                            </td>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <a href="{{ route('ShopShow', ['id' => $producto->id]) }}" class="mb-0 text-sm">{{ $producto->nombre }}</a>
+                                            </div>
+                                        </td>
                                         <td class="align-middle text-center">{{ $producto->descripcion }}</td>
                                         <td class="align-middle text-center">{{ $producto->precio }}</td>
                                         <td class="align-middle text-center">{{ $producto->talla }}</td>

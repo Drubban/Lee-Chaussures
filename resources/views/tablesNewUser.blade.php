@@ -55,8 +55,10 @@
                                     <option value="Trabajador">Trabajador</option>
                                 </select>
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                                <a href="{{ route('tables') }}" class="btn btn-secondary">Volver</a>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
                         </form>
                     </div>
                 </div>

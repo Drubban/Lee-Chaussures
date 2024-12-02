@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Http\Controllers\Requestt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -39,30 +40,42 @@ class TablesController extends Controller
             return redirect()->back()->withErrors('El usuario no existe.');
         }
 
-        return view('tablesEdit', compact('usuario'));
+        return view('tablesEditar', compact('usuario'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:30',
-            'lastName' => 'required|string|max:30',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'phone' => 'nullable|string|max:10',
         ]);
 
-        DB::statement('CALL sp_up_cli_yair(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-            $id,
-            $request->input('name'),
-            $request->input('lastName'),
-            $request->filled('password') ? bcrypt($request->input('password')) : null, // Solo aplica bcrypt si hay contraseña
-            $request->input('email'),
-            $request->input('phone'),
-            $request->input('location'),
-            $request->input('about_me'),
-            $request->input('status'),
-        ]);
-        
+        try {
+            DB::statement('CALL sp_up_cli_yair(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                $id,
+                $request->input('name'),
+                $request->input('lastName'),
+                $request->filled('password') ? bcrypt($request->input('password')) : null, // Solo aplica bcrypt si hay contraseña
+                $request->input('email'),
+                $request->input('phone'),
+                $request->input('location'),
+                $request->input('about_me'),
+                $request->input('status') === 'Activo' ? 1 : 0
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Verifica si el error es por violación de restricción de clave única (código de error '23000')
+            if ($e->getCode() === '23000' && strpos($e->getMessage(), 'email') !== false) {
+                return redirect()->back()->withErrors('El correo electrónico ya está registrado. Intenta con otro.')->withInput();
+            }
+
+            // Si hay otro error SQL, lo re-lanzamos
+            throw $e;
+        }
+
         return redirect()->route('tables')->with('success', 'Usuario actualizado con éxito.');
     }
+
 
     public function destroy($id)
     {
@@ -100,18 +113,25 @@ class TablesController extends Controller
             'userType' => 'required|string|in:Cliente,Administrador,Trabajador',
         ]);
 
-        // Llamada al procedimiento almacenado para insertar
-        DB::select('CALL sp_ins_cli_yair(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-            $request->name,
-            $request->lastName,
-            bcrypt($request->password),
-            $request->email,
-            $request->phone,
-            $request->location,
-            $request->about_me,
-            $request->status,
-            $request->userType,  // Aquí se pasa el valor de userType
-        ]);
+        try {
+            DB::select('CALL sp_ins_cli_yair(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                $request->name,
+                $request->lastName,
+                bcrypt($request->password),
+                $request->email,
+                $request->phone,
+                $request->location,
+                $request->about_me,
+                $request->status,
+                $request->userType,
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() === '23000') { // Código de error SQL para violación de restricción de clave única
+                return redirect()->back()->withErrors('El correo electrónico ya está registrado. Intenta con otro.')->withInput();
+            }
+
+            throw $e; // Re-lanza otras excepciones
+        }
 
         return redirect()->route('tables')->with('success', 'Usuario creado correctamente');
     }

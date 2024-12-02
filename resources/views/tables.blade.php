@@ -8,7 +8,7 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                         <h6>Tabla de empleados</h6>
-                        <a href="{{ route('tablesCreate') }}" class="btn btn-primary">Nuevo Empleado</a>
+                        <a href="{{ route('tablesCreate') }}" class="btn btn-secondary">Nuevo Empleado</a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -44,14 +44,15 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $user->phone }}</p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span
-                                                class="badge badge-sm {{ $user->status ? 'bg-gradient-success' : 'bg-gradient-secondary' }}">
-                                                {{ $user->status ? 'Activo' : 'Inactivo' }}
+                                            <span class="badge badge-sm {{ $user->status === 1 ? 'bg-gradient-success' : 'bg-gradient-secondary' }}">
+                                                {{ $user->status === 1 ? 'Activo' : 'Inactivo' }}
                                             </span>
+
                                         </td>
                                         <td class="align-middle text-center">
                                             <span
-                                                class="text-secondary text-xs font-weight-bold">{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/y') }}</span>
+                                                class="text-secondary text-xs font-weight-bold">{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/y') }}
+                                            </span>
                                         </td>
                                         <td class="align">
                                             <a href="{{ route('tablesEdit', ['id' => $user->id]) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> Edit</a>
@@ -106,7 +107,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <p class="mb-0 text-sm">{{ $client->name }}</p>
+                                                    <a href="{{ route('tablesShow', ['id' => $client->id]) }}" class="mb-0 text-sm">{{ $client->name }}</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -121,9 +122,8 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $client->email }}</p>
                                         </td>
                                         <td class="align-middle text text-sm">
-                                            <span
-                                                class="badge badge-sm {{ $user->status ? 'bg-gradient-success' : 'bg-gradient-secondary' }}">
-                                                {{ $user->status ? 'Activo' : 'Inactivo' }}
+                                            <span class="badge badge-sm {{ $client->status === 1 ? 'bg-gradient-success' : 'bg-gradient-secondary' }}">
+                                                {{ $client->status === 1 ? 'Activo' : 'Inactivo' }}
                                             </span>
                                         </td>
                                         <td class="align-middle text-center">

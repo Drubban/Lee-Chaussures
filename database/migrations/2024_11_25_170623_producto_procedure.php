@@ -14,7 +14,7 @@ return new class extends Migration
     {
         // Procedimiento para insertar producto
         DB::unprepared('
-            CREATE PROCEDURE sp_ins_producto(
+            CREATE PROCEDURE sp_ins_prod_yair(
                 IN p_nombre VARCHAR(255),
                 IN p_descripcion VARCHAR(255),
                 IN p_talla DOUBLE,
@@ -30,7 +30,7 @@ return new class extends Migration
 
         // Procedimiento para actualizar producto
         DB::unprepared('
-            CREATE PROCEDURE sp_upd_producto(
+            CREATE PROCEDURE sp_upd_prod_yair(
                 IN p_id BIGINT,
                 IN p_nombre VARCHAR(255),
                 IN p_descripcion VARCHAR(255),
@@ -55,7 +55,7 @@ return new class extends Migration
 
         // Procedimiento para eliminar producto
         DB::unprepared('
-            CREATE PROCEDURE sp_del_producto(
+            CREATE PROCEDURE sp_del_prod_yair(
                 IN p_id BIGINT
             )
             BEGIN
@@ -65,7 +65,7 @@ return new class extends Migration
 
         // Procedimiento para obtener todos los productos
         DB::unprepared('
-            CREATE PROCEDURE sp_get_productos()
+            CREATE PROCEDURE sp_get_prod_yair()
             BEGIN
                 SELECT * FROM producto;
             END;

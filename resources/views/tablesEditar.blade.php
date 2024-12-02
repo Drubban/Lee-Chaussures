@@ -1,7 +1,7 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
-<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+<!-- <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg "> -->
     <div class="container mt-5">
         <h2>Editar Usuario</h2>
 
@@ -72,6 +72,6 @@
             <a href="{{ route('tables') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
-</main>
+<!-- </main> -->
 
 @endsection
