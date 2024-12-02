@@ -17,8 +17,10 @@ return new class extends Migration
             $table->double('montoTotal');
             $table->unsignedBigInteger('id_cliente');
             $table->unsignedBigInteger('id_trabajador');
+            $table->unsignedBigInteger('id_producto');
             $table->foreign('id_cliente')->references('id')->on('cliente')->onDelete('cascade');
             $table->foreign('id_trabajador')->references('id')->on('trabajador')->onDelete('cascade');
+            $table->foreign('id_producto')->references('id')->on('producto')->onDelete('cascade');
         });
     }
 

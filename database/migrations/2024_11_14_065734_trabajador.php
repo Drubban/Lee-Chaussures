@@ -16,7 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('userId');
             $table->string('token');
             $table->rememberToken();
+            $table->unsignedBigInteger('idProducto');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('idProducto')->references('id')->on('producto')->onDelete('cascade');
         });
 
     }
